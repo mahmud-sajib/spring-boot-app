@@ -25,7 +25,7 @@ public class StudentDAOImpl implements StudentDAO {
     @Override
     @Transactional
     public void save(Student theStudent){
-        // Persisting the provided Student entity using the EntityManager
+        // Saving the provided Student entity using the EntityManager
         entityManager.persist(theStudent);
     }
 
@@ -36,15 +36,42 @@ public class StudentDAOImpl implements StudentDAO {
         return entityManager.find(Student.class, id);
     }
 
+    // Overriding the findAll() method from the StudentDAO interface
     @Override
     public List<Student> findAll() {
         // create query
+        // Find and return all the Students using the EntityManager
         // TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student", Student.class);
 
         // create query (in asc/desc order)
-        TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student order by lastName dsc", Student.class);
+        // Find and return all the Students using the EntityManager (filter using last name in ascending order)
+        TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student order by lastName asc", Student.class);
 
         // return result
         return theQuery.getResultList();
+    }
+
+    // Overriding the findByLastName() method from the StudentDAO interface
+    @Override
+    public List<Student> findByLastName(String theLastName) {
+        // create query
+        // Find and return specific Students using the EntityManager (whose last name matches given input)
+        TypedQuery<Student> theQuery = entityManager.createQuery(
+                 "FROM Student WHERE lastName=:theData", Student.class);
+
+        // set query parameters
+        theQuery.setParameter("theData", theLastName);
+
+        // return result
+        return theQuery.getResultList();
+
+    }
+
+    // Overriding the update() method from the StudentDAO interface
+    @Override
+    @Transactional
+    public void update(Student theStudent) {
+        // Updating the provided Student entity using the EntityManager
+        entityManager.merge(theStudent);
     }
 }

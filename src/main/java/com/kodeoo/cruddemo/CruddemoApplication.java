@@ -24,18 +24,25 @@ public class CruddemoApplication {
 			// saves it using the studentDAO bean.
 			// createMultipleStudent(studentDAO); // Method invoked when the application starts
 			// readStudent(studentDAO); // Method invoked when the application starts
-			queryStudent(studentDAO);
+			// queryStudent(studentDAO);
+			// queryStudentByLastName(studentDAO);
+			updateStudent(studentDAO);
 		};
 	}
 
 	// Multiple READ operation
-	private void queryStudent(StudentDAO studentDAO){
-		// get a list of students
-		List<Student> theStudents = studentDAO.findAll();
+	private void updateStudent(StudentDAO studentDAO){
+		// retrieve student based on id
+		int studentId = 1;
+		Student myStudent = studentDAO.findById(studentId);
 
-		// display list of students
-		for (Student tempStudent : theStudents){
-			System.out.println(tempStudent);
-		}
+		// change firstName
+		myStudent.setFirstName("Khabi");
+
+		// update the student
+		studentDAO.update(myStudent);
+
+		// display info of the updated student
+		System.out.println(myStudent);
 	}
 }
