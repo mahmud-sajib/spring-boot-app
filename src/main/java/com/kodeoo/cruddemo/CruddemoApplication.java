@@ -26,23 +26,23 @@ public class CruddemoApplication {
 			// readStudent(studentDAO); // Method invoked when the application starts
 			// queryStudent(studentDAO);
 			// queryStudentByLastName(studentDAO);
-			updateStudent(studentDAO);
+			// updateStudent(studentDAO);
+			// deleteStudent(studentDAO);
+			deleteAllStudent(studentDAO);
 		};
 	}
 
-	// Multiple READ operation
-	private void updateStudent(StudentDAO studentDAO){
-		// retrieve student based on id
-		int studentId = 1;
-		Student myStudent = studentDAO.findById(studentId);
+	// Single DELETE operation
+	//	private void deleteStudent(StudentDAO studentDAO){
+	//		// delete student based on id
+	//		int studentId = 8;
+	//		studentDAO.delete(studentId);
+	//	}
 
-		// change firstName
-		myStudent.setFirstName("Khabi");
-
-		// update the student
-		studentDAO.update(myStudent);
-
-		// display info of the updated student
-		System.out.println(myStudent);
+	// Multiple DELETE operation
+	private void deleteAllStudent(StudentDAO studentDAO){
+		int itemsDeleted = studentDAO.deleteAll();
+		System.out.println("Rows deleted " + itemsDeleted);
 	}
+
 }
