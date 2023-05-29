@@ -12,4 +12,6 @@ public interface StudentDAO {
     // find from db
     Student findById(Integer id);
 
+    // query from db
+    List<Student> findAll();
 }

@@ -2,6 +2,7 @@ package com.kodeoo.cruddemo.dao;
 
 import com.kodeoo.cruddemo.entity.Student;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,10 +29,22 @@ public class StudentDAOImpl implements StudentDAO {
         entityManager.persist(theStudent);
     }
 
-    // Overriding the save() method from the StudentDAO interface
+    // Overriding the findById() method from the StudentDAO interface
     @Override
     public Student findById(Integer id) {
         // Find and return the Student entity with the given ID using the EntityManager
         return entityManager.find(Student.class, id);
+    }
+
+    @Override
+    public List<Student> findAll() {
+        // create query
+        // TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student", Student.class);
+
+        // create query (in asc/desc order)
+        TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student order by lastName dsc", Student.class);
+
+        // return result
+        return theQuery.getResultList();
     }
 }

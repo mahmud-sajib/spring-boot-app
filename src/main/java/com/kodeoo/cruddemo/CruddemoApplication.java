@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class CruddemoApplication {
 
@@ -21,33 +23,19 @@ public class CruddemoApplication {
 			// The createStudent method creates a new Student object with the provided values and
 			// saves it using the studentDAO bean.
 			// createMultipleStudent(studentDAO); // Method invoked when the application starts
-			readStudent(studentDAO); // Method invoked when the application starts
+			// readStudent(studentDAO); // Method invoked when the application starts
+			queryStudent(studentDAO);
 		};
 	}
 
-	// Single READ operation
-	private void readStudent(StudentDAO studentDAO) {
-		// create new student objects
-		System.out.println("Creating students...");
-		Student tempStudent = new Student("Naomi", "Eli", "eli@yahoo.com");
+	// Multiple READ operation
+	private void queryStudent(StudentDAO studentDAO){
+		// get a list of students
+		List<Student> theStudents = studentDAO.findAll();
 
-		// save new student objects
-		System.out.println("Saving students...");
-		studentDAO.save(tempStudent);
-
-		// display student id
-		int theId =  tempStudent.getId();
-
-		// get id of the student object
-		System.out.println("Student Id " + theId);
-
-		// retrieve student based on id
-		System.out.println("Retrieve Student by Id...");
-		Student myStudent = studentDAO.findById(theId);
-
-		// display student info
-		System.out.println("Student found...");
-		System.out.println(myStudent);
-
+		// display list of students
+		for (Student tempStudent : theStudents){
+			System.out.println(tempStudent);
+		}
 	}
 }
