@@ -5,6 +5,12 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "student")
 public class Student {
+
+    // Default constructor (required for DB READ operation)
+    public Student(){
+        // Add here init stuff if needed
+    }
+
     // Define fields
 
     // The @Id annotation specifies the primary key of the entity

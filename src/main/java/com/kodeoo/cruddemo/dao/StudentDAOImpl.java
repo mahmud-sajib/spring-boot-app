@@ -6,6 +6,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository // Indicates that it is a Spring repository bean.
 public class StudentDAOImpl implements StudentDAO {
 
@@ -24,5 +26,12 @@ public class StudentDAOImpl implements StudentDAO {
     public void save(Student theStudent){
         // Persisting the provided Student entity using the EntityManager
         entityManager.persist(theStudent);
-    };
+    }
+
+    // Overriding the save() method from the StudentDAO interface
+    @Override
+    public Student findById(Integer id) {
+        // Find and return the Student entity with the given ID using the EntityManager
+        return entityManager.find(Student.class, id);
+    }
 }

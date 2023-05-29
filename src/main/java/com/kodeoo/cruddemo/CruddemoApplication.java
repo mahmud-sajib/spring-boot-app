@@ -20,24 +20,34 @@ public class CruddemoApplication {
 		return runner -> {
 			// The createStudent method creates a new Student object with the provided values and
 			// saves it using the studentDAO bean.
-			createMultipleStudent(studentDAO); // Method invoked when the application starts
+			// createMultipleStudent(studentDAO); // Method invoked when the application starts
+			readStudent(studentDAO); // Method invoked when the application starts
 		};
 	}
 
-	private void createMultipleStudent(StudentDAO studentDAO) {
+	// Single READ operation
+	private void readStudent(StudentDAO studentDAO) {
 		// create new student objects
 		System.out.println("Creating students...");
-		Student tempStudent1 = new Student("Mary", "Kin", "mary@yahoo.com");
-		Student tempStudent2 = new Student("Ovi", "Sen", "ovi@yahoo.com");
-		Student tempStudent3 = new Student("Son", "Xin", "son@yahoo.com");
+		Student tempStudent = new Student("Naomi", "Eli", "eli@yahoo.com");
 
 		// save new student objects
 		System.out.println("Saving students...");
-		studentDAO.save(tempStudent1);
-		studentDAO.save(tempStudent2);
-		studentDAO.save(tempStudent3);
+		studentDAO.save(tempStudent);
+
+		// display student id
+		int theId =  tempStudent.getId();
 
 		// get id of the student object
-		System.out.println("Student Id " + tempStudent2.getId());
+		System.out.println("Student Id " + theId);
+
+		// retrieve student based on id
+		System.out.println("Retrieve Student by Id...");
+		Student myStudent = studentDAO.findById(theId);
+
+		// display student info
+		System.out.println("Student found...");
+		System.out.println(myStudent);
+
 	}
 }
